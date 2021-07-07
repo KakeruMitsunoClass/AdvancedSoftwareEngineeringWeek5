@@ -30,56 +30,58 @@ func rpn(s string) string {
 	*/
 
 	splitteds := strings.Split(s, " ")
+
 	for _, v := range splitteds {
 		// fmt.Println(v)
 
 		switch v {
 		case "+":
-			stack, snum1 := pop(stack)
-			num1, _ = strconv.Atoi(snum1)
-			stack, snum2 := pop(stack)
-			num2, _ = strconv.Atoi(snum2)
-			fmt.Println(num1)
-			fmt.Println(num2)
+			stack, num1 = pop(stack)
+			stack, num2 = pop(stack)
+			stack = push(stack, num2+num1)
+			fmt.Println(stack)
 			fmt.Println("pls")
 		case "-":
-			stack, snum1 := pop(stack)
-			num1, _ = strconv.Atoi(snum1)
-			stack, snum2 := pop(stack)
-			num2, _ = strconv.Atoi(snum2)
+			stack, num1 = pop(stack)
+			stack, num2 = pop(stack)
+			stack = push(stack, num2-num1)
 			fmt.Println("mns")
 		case "*":
-			stack, snum1 := pop(stack)
-			num1, _ = strconv.Atoi(snum1)
-			stack, snum2 := pop(stack)
-			num2, _ = strconv.Atoi(snum2)
+			stack, num1 = pop(stack)
+			stack, num2 = pop(stack)
+			stack = push(stack, num2*num1)
 			fmt.Println("mul")
 		case "/":
-			stack, snum1 := pop(stack)
-			num1, _ = strconv.Atoi(snum1)
-			stack, snum2 := pop(stack)
-			num2, _ = strconv.Atoi(snum2)
+			stack, num1 = pop(stack)
+			stack, num2 = pop(stack)
+			stack = push(stack, num2/num1)
 			fmt.Println("div")
 		default: //数字
-			stack = push(stack, v)
+			stack = append(stack, v)
+			//fmt.Println(stack)
 			fmt.Println(v)
 		}
 	}
 
-	stack = append(stack, "42")
+	//stack = append(stack, "42")
 	return stack[len(stack)-1]
 }
 
-func push(stack []string, s string) []string {
+func push(stack []string, i int) []string {
+	s := strconv.Itoa(i)
 	stack = append(stack, s)
 	return stack
 }
 
-func pop(stack []string) ([]string, string) {
+func pop(stack []string) ([]string, int) {
 	var s string
+	var num int
 	s = stack[len(stack)-1]
 	stack = stack[:len(stack)-1]
-	return stack, s
+	num, _ = strconv.Atoi(s)
+	//fmt.Println(num)
+
+	return stack, num
 }
 
 // func print(s string) {
@@ -88,7 +90,7 @@ func pop(stack []string) ([]string, string) {
 
 func main() {
 	// テスト用
-	input := "1 2 + 1 - 2 * 1 /"
+	input := "2 3 + 3 - 4 * 2 /"
 	// 運用時
 	// input := "-1"
 	result := rpn(input)
