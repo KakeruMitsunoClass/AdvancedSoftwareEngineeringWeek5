@@ -39,27 +39,27 @@ func rpn(s string) string {
 			stack, num1 = pop(stack)
 			stack, num2 = pop(stack)
 			stack = push(stack, num2+num1)
-			fmt.Println(stack)
-			fmt.Println("pls")
+			//fmt.Println(stack)
+			//fmt.Println("pls")
 		case "-":
 			stack, num1 = pop(stack)
 			stack, num2 = pop(stack)
 			stack = push(stack, num2-num1)
-			fmt.Println("mns")
+			//fmt.Println("mns")
 		case "*":
 			stack, num1 = pop(stack)
 			stack, num2 = pop(stack)
 			stack = push(stack, num2*num1)
-			fmt.Println("mul")
+			//fmt.Println("mul")
 		case "/":
 			stack, num1 = pop(stack)
 			stack, num2 = pop(stack)
 			stack = push(stack, num2/num1)
-			fmt.Println("div")
+			//fmt.Println("div")
 		default: //数字
 			stack = append(stack, v)
 			//fmt.Println(stack)
-			fmt.Println(v)
+			//fmt.Println(v)
 		}
 	}
 
@@ -83,10 +83,6 @@ func pop(stack []string) ([]string, int) {
 
 	return stack, num
 }
-
-// func print(s string) {
-// 	fmt.Println(s)
-// }
 
 func main() {
 	// テスト用
